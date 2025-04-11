@@ -11,3 +11,5 @@ Operation monitoring clock
 
 [Micropython download](https://micropython.org/download/RPI_PICO2_W/) or use [v1.25.0](./doc/RPI_PICO2_W-20250326-v1.25.0-preview.408.gf315a376b.uf2)
 
+
+used css framework: [poco css](https://x4qtf8.csb.app/) 

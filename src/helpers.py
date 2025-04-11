@@ -21,3 +21,7 @@ def connect_to_wlan(ssid:str, password:str, retry_attempts:int = 10):
         print('connected')
         status = wlan.ifconfig()
         print( 'ip = ' + status[0])
+
+
+
+    
