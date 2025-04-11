@@ -66,9 +66,8 @@ class Color:
 # displays, segments, leds per segment and divider between hour and minutes 
 
 class LedStrip:
-    
-    size = 58
-    _led_strip = Neopixel(58, 0, 0, "GRB")
+      
+    _led_strip = Neopixel(38, 0, 3, "GRB")
     
     def __init__(self) -> None:
         self._led_strip.brightness(42)
