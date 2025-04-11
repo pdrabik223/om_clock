@@ -2,7 +2,7 @@ import network
 import time
 
 
-def connect_to_wlan(ssid:str, password:str, retry_attempts:int = 10): str:
+def connect_to_wlan(ssid:str, password:str, retry_attempts:int = 10)-> str:
     
     wlan = network.WLAN(network.STA_IF)
     wlan.active(True)

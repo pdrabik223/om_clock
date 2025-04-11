@@ -33,10 +33,10 @@ def test2_endpoint():
 routes_map = {"test2": test2_endpoint()}
 
 def redirect(route_str:str):
-    route_str[len("http://") + len(ip) + 1:]
+    route_str = route_str[len("http://") + len(ip) + 1:]
     print(route_str)
-    if routes_map.keys().contains(route_str)
-        routes_map[route_str]()
+    # if routes_map.keys().contains(route_str)
+        # routes_map[route_str]()
     
     
     
