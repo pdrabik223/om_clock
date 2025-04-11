@@ -2,7 +2,7 @@ import network
 import time
 
 
-def connect_to_wlan(ssid:str, password:str, retry_attempts:int = 10):
+def connect_to_wlan(ssid:str, password:str, retry_attempts:int = 10): str:
     
     wlan = network.WLAN(network.STA_IF)
     wlan.active(True)
@@ -21,6 +21,7 @@ def connect_to_wlan(ssid:str, password:str, retry_attempts:int = 10):
         print('connected')
         status = wlan.ifconfig()
         print( 'ip = ' + status[0])
+        return status[0]
 
 
 

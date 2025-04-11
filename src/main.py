@@ -7,7 +7,7 @@ from helpers import connect_to_wlan
 ssid = 'FurFur_2.4G'
 password = 'm0n41154'
 
-connect_to_wlan(ssid, password)
+ip = connect_to_wlan(ssid, password)
 
 def load_html():
     html = """<!DOCTYPE html><html><head><title>ERROR</title></head></html>"""
@@ -26,6 +26,20 @@ s.listen(1)
 
 print('listening on', addr)
 
+
+def test2_endpoint():
+    print("running endpoint code")
+    
+routes_map = {"test2": test2_endpoint()}
+
+def redirect(route_str:str):
+    route_str[len("http://") + len(ip) + 1:]
+    print(route_str)
+    if routes_map.keys().contains(route_str)
+        routes_map[route_str]()
+    
+    
+    
 while True:
     try:
         cl, addr = s.accept()
@@ -34,9 +48,7 @@ while True:
         begin = str(request).find("Referer:")
         referer_str = str(request)[begin:].split("\\n")[0]
         route_str =  referer_str[8:-2]
-        # end = request.find("Accept-Encoding")
-        print(route_str.strip())
-        
+        redirect(route_str)
         
         cl.send(html)
         cl.close()
