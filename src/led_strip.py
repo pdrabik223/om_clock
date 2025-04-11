@@ -71,7 +71,7 @@ class LedStrip:
     
     def __init__(self) -> None:
         self._led_strip.brightness(42)
-        self._led_strip.fill(Color.red().to_tuple())
+        self._led_strip.fill(Color.pink().to_tuple())
         self._led_strip.show()
 
     def fill(self, color: Color, show: bool = True):
