@@ -1,16 +1,41 @@
-from led_strip import LedStrip, Color
-from machine import Pin
+import network
+import socket
 import time
-led_strip = LedStrip()
+from helpers import connect_to_wlan
 
-     
 
-Pin('LED', Pin.OUT).value(1)
+ssid = 'FurFur_2.4G'
+password = 'm0n41154'
 
-i=0
-while(True):
-    i += 1
-    led_strip.fill(Color.black())
-    led_strip.set_pixel(i%38,Color.red())
-    time.sleep(0.1)
-    
+html = f"""<!DOCTYPE html>
+<html>
+    <head> <title>Pico W</title> </head>
+    <body> <h1>Pico W</h1>
+        <p>{12}</p>
+        <button> Test </button>
+    </body>
+</html>
+"""
+
+connect_to_wlan(ssid, password)
+
+addr = socket.getaddrinfo('0.0.0.0', 80)[0][-1]
+
+s = socket.socket()
+s.bind(addr)
+s.listen(1)
+
+print('listening on', addr)
+
+
+while True:
+    try:
+        cl, addr = s.accept()
+        print('client connected from', addr)
+
+        cl.send(html)
+        cl.close()
+
+    except OSError as e:
+        cl.close()
+        print('connection closed')
