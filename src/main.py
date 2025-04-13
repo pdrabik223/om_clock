@@ -7,8 +7,6 @@ from led_strip import LedStrip
 
 led_strip = LedStrip()
 
-
-
 def load_html(path_to_html_file:str = 'assets/index.html'):
     html = """<!DOCTYPE html><html><head><title>failed to load html data</title></head></html>"""
     
@@ -46,15 +44,11 @@ def redirect(ip , cl):
     route_str = route_str[len("http://") + len(ip) + 1:]
     print(route_str)
 
-
-
-@endpoint("")
-def home_page(cl):
-    cl.send(html)
+# @endpoint("")
+# def home_page(cl):
+#     cl.send(html)
     
 print(f"listening on: http://{ip}\nlist of endpoints: {routes_map}")
-
-
 
 while True:
     try:

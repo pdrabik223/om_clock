@@ -20,9 +20,9 @@ def connect_to_wlan(ssid:str, password:str, retry_attempts:int = 10)-> str:
         raise RuntimeError('network connection failed')
 
     else:
-        print('connection succeeded')
 
         status = wlan.ifconfig()
+        print(f"connection succeeded, ip: '{status[0]}'")
         return status[0]    
 
 def get_wifi_info()->dict:
@@ -36,16 +36,34 @@ def get_wifi_info()->dict:
     
     return wifi_config
 
+def save_wifi_info(ssid, password, wifi_config):
+    if next(iter(wifi_config)) == ssid:
+        return
+    
+    new_config = {}
+    new_config[ssid] = password
+    print(new_config)
+    
+    for key in wifi_config.keys():
+        if key != ssid:
+            new_config[key] = wifi_config[key]
+    
+    with open("wifi_config.json", 'w') as file:
+        file.write(json.dumps(new_config))
 
+            
 def connect_to_wifi()->str:
     wifi_list = get_wifi_info()
-    print(f"loaded wifi list: {wifi_list}")
+    print(f"loaded wifi list: '{wifi_list}'")
     
-    for i in wifi_list.keys():
-        print(f"connecting to wifi: {i} with password: {wifi_list[i]}")
+    for key in wifi_list.keys():
+        print(f"connecting to wifi: '{key}' with password: '{wifi_list[key]}'")
         try:
-            return connect_to_wlan(i, wifi_list[i])
+            ip = connect_to_wlan(key, wifi_list[key])
+            save_wifi_info(key, wifi_list[key], wifi_list)
+            return ip
         except Exception as err:
+            print(err)
             continue
 
     raise RuntimeError("network connection failed")
