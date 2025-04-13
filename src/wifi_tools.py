@@ -39,10 +39,9 @@ def get_wifi_info()->dict:
 def save_wifi_info(ssid, password, wifi_config):
     if next(iter(wifi_config)) == ssid:
         return
+    #FIXME new reconfigured file is not saved to memory
+    new_config = {ssid: password}
     
-    new_config = {}
-    new_config[ssid] = password
-    print(new_config)
     
     for key in wifi_config.keys():
         if key != ssid:
@@ -50,6 +49,7 @@ def save_wifi_info(ssid, password, wifi_config):
     
     with open("wifi_config.json", 'w') as file:
         file.write(json.dumps(new_config))
+        
 
             
 def connect_to_wifi()->str:
