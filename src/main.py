@@ -6,7 +6,10 @@ from wifi_tools import connect_to_wifi
 from led_strip import LedStrip, Color
 
 led_strip = LedStrip()
-led_strip.fill(Color(242,164,28))
+led_brightness = 100 
+led_color = Color(242,164,28)
+led_strip.fill(led_color)
+
 
 def load_html(path_to_html_file:str = 'assets/index.html')->str:
     html = """<!DOCTYPE html><html><head><title>failed to load html data</title></head></html>"""
@@ -22,15 +25,28 @@ s = socket.socket()
 s.bind(addr)
 s.listen(1)
 
+
 def home_page(cl, params, named_params):
     print("home page")
     page_str = load_html("assets/index.html")
-    cl.send(page_str.format(example_variable =  "Variable secured"))
-    
+    hex_color = '#%02x%02x%02x' % led_color.to_tuple()
+    cl.send(page_str.format(example_variable =  "HOME", brightness = led_brightness, color = hex_color))
+
+
 def test2_page(cl, params, named_params):
     page_str = load_html("assets/index.html")
     print("returning test2 page")
-    cl.send(page_str.format(example_variable =  "TEST2"))
+    
+    led_brightness = int(named_params["brightness"])
+    color_str = named_params["color"][-6:]
+    led_color = Color(*tuple(int(color_str[i:i+2], 16) for i in (0, 2, 4)))
+    
+    
+    led_strip.brightness(led_brightness, False)
+    led_strip.fill(led_color)
+    
+    hex_color = '#%02x%02x%02x' % led_color.to_tuple()
+    cl.send(page_str.format(example_variable =  "TEST2", brightness = led_brightness, color = hex_color))
 
 def page_not_found(cl):
     cl.send(load_html("assets/404_page.html"))
@@ -72,7 +88,7 @@ def redirect(ip , cl):
     
     if path not in routes_map:
         print(f"page: {path} was not in routes_map")
-        # page_not_found(cl)
+ 
         return
     
     try:
