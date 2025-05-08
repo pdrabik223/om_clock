@@ -3,21 +3,72 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
 
 <head>
-    <title>Pico W</title>
+    <title>OM Clock</title>
+    <link rel="icon" type="image/x-icon" href="clock.png">
+    <script type="text/javascript">
+
+        selection_map = {
+            1: "animation_configurations/rainbow_gradient.html",
+            0: "animation_configurations/simple_fill.html"
+        }
+
+        function selectAnimation() {
+            let selection = document.getElementById("animation-select").selectedIndex
+
+            fetch(selection_map[selection])
+                .then((response) => response.text())
+                .then((test) => {
+                    const element = document.getElementById("animation-configuration");
+                    element.innerHTML = test;
+                });
+        }
+        document.addEventListener('DOMContentLoaded', selectAnimation, false);
+    </script>
+    <style>
+        .flex-container {
+            display: flex;
+
+        }
+
+        .flex-element {
+            padding: 20px;
+            margin: auto;
+        }
+
+        .config-cell {
+            padding: 24px;
+            border-style: solid;
+            border-radius: 24px;
+
+        }
+    </style>
 </head>
 
-<body>
-    <h1>Pico W</h1>
-    <p>example variable: {example_variable}</p>
+<body style="padding: 5% 10%; max-width: 1600px; display: flex;">
 
-    <form action="./test2", method="GET">
-        <div>
-            <input type="range" min="0" max="255" value={brightness} class="slider" id="brightness", name="brightness">
-            <input type="color" id="color" name="color" value={color} />
+    <div style="margin: auto;">
+        <h1 style="margin-bottom: 2%;">OM Clock</h1>
+        <input type="checkbox" id="on_off_switch" , name="on_off_switch" , role="switch">
 
-            <input type="submit" value="Input Submit" />
 
-        </div>
-
+        <form action="./" , method="GET">
+            <div style="height: 24px;"></div>
+            <div class="config-cell">
+                <h2 for="animation-select">Animation</h2>
+                <p>Animation description.</p>
+                <select name="animation-select" id="animation-select" onchange="selectAnimation()">
+                    <option value="static">Static Color</option>
+                    <option value="rainbow">Rainbow Gradient</option>
+                </select>
+            </div>
+            <div style="height: 24px;"></div>
+            <div id="animation-configuration">
+                <article aria-busy="true">
+                </article>
+            </div>
+            <div style="height: 24px;"></div>
+            <input type="submit" value="Update" />
+        </form>
+    </div>
 
 </html>

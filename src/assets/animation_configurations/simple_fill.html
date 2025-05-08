@@ -1,0 +1,13 @@
+<div class="config-cell">
+    <h2>Brightness</h2>
+    <p> Describes overall brightness of led strip.</p>
+    <input type="range" min="0" max="255" value={brightness} class="slider" id="brightness" , name="brightness">
+</div>
+<div style="height: 24px;"></div>
+<div class="config-cell">
+    <h2>Color</h2>
+    <p>Specifies color of whole strip, due to technology behind neopixel's this color will
+        not be reflected
+        correctly.</p>
+    <input type="color" id="color" name="color" value={color} />
+</div>

@@ -13,3 +13,8 @@ Operation monitoring clock
 
 
 used css framework: [poco css](https://x4qtf8.csb.app/) 
+
+to launch webapp locally, run following command in [src/assets](src/assets/)
+```sh
+python -m http.server
+```
